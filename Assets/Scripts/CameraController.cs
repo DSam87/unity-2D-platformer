@@ -7,8 +7,9 @@ public class CameraController : MonoBehaviour
     public Transform middleBackground, farBackground;
     public Transform target;
 
-    private float lastXPos;
+    public float minHight, maxHeight;
 
+    private float lastXPos;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,18 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         // Moving Cam based on the target
-        transform.position = new Vector3(target.position.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);   
+
+        if(transform.position.y <= minHight)
+        {
+            transform.position = new Vector3(target.position.x, minHight, transform.position.z); 
+        }
+
+        if(transform.position.y >= maxHeight)
+        {
+            transform.position = new Vector3(target.position.x, maxHeight, transform.position.z); 
+        }
+
 
         // Getting the diffrence between the current and previose position
         float amountToMoveX = transform.position.x - lastXPos;
